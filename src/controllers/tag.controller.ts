@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, Errback } from 'express';
 import { Knex } from 'knex';
 
 class TagController {
@@ -8,8 +8,44 @@ class TagController {
         this.database = database;
     }
 
+    getAllTags(req: Request, res: Response){
+        const query = `
+            SELECT * FROM Tag WHERE dataExclusao IS NULL;
+        `;
+
+        this.database.raw(query).then((result) => {
+            res.status(200).send(result);
+        })
+        .catch((err: any) => {
+            res.status(500).send(err);
+        });
+    }
+
     getTag(req: Request, res: Response){
-        
+        const query = `
+            SELECT * FROM Tag WHERE dataExclusao IS NULL AND idTag = ${req.params.idTag}; 
+        `;
+
+        this.database.raw(query).then((result) => {
+            res.status(200).send(result);
+        })
+        .catch((err: any) => {
+            res.status(500).send(err);
+        });
+    }
+
+    create(req: Request, res: Response){
+        const query = `
+            INSERT INTO Tag (descTag, dataInclusao) VALUES ('${req.body.descTag}', '${req.body.dataInclusao}');
+            SELECT @@IDENTITY as 'id';
+        `;
+
+        this.database.raw(query).then((result) => {
+            res.status(201).send(result);
+        })
+        .catch((err: any) => {
+            res.status(500).send(err);
+        });
     }
 }
 
