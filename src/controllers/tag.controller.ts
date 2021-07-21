@@ -47,6 +47,20 @@ class TagController {
             res.status(500).send(err);
         });
     }
+
+    update(req: Request, res: Response){
+        const query = `
+            UPDATE Tag SET descTag = '${req.body.descTag}' WHERE idTag = ${req.params.idTag};
+            SELECT * FROM Tag WHERE idTag = ${req.params.idTag} AND dataExclusao IS NULL;
+        `;
+
+        this.database.raw(query).then((result) => {
+            res.status(200).send(result);
+        })
+        .catch((err: any) => {
+            res.status(500).send(err);
+        });
+    }
 }
 
 export default TagController;
