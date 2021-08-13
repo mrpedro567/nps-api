@@ -1,18 +1,16 @@
 import { Request, Response } from "express";
 import { Knex } from 'knex';
 
-class NpsController {
+class UserController {
     database: Knex;
 
     constructor(database: Knex){
         this.database = database;
     }
 
-    get(req: Request, res: Response){
-        res.status(200).send({message: 'Ok'});
+    validate(req: Request, res: Response){
+        
     }
 }
 
-
-
-export default NpsController;
+export default UserController;

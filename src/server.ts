@@ -9,6 +9,6 @@ app.use(cors());
 app.use(express.json());
 app.use(routes);
 
-app.listen(3000, () => {
-    console.log(`[server]: Server is running at https://localhost:3000`);
+app.listen(3333, () => {
+    console.log(`[server]: Server is running at https://localhost:3333`);
 });
